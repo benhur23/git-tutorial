@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.movie.mapper.PeliculaMapper">
+
+    <resultMap id="pelicula-result" type="com.spring.movie.domain.Pelicula">
+    	<result property="idPelicula" column="ID_PELICULA"/>
+    	<result property="titulo" column="TITULO"/>
+    	<result property="tiempoMinutos" column="TIEMPO_MINUTOS"/>
+    	<result property="fechaLanzamiento" column="FECHA_LANZAMIENTO"/>
+    	<result property="comentarios" column="COMENTARIOS"/>
+		<association property="pais" column="ID_PAIS" javaType="com.spring.movie.domain.Pais" select="obtenerPaisPorId"/>
+		<association property="genero" column="ID_GENERO" javaType="com.spring.movie.domain.Genero" select="obtenerGeneroPorId"/> 
+		
+		<association property="productor" column="ID_PRODUCTOR" javaType="com.spring.movie.domain.Actor" select="obtenerActorPorId"/>  	
+		<association property="director" column="ID_DIRECTOR" javaType="com.spring.movie.domain.Actor" select="obtenerActorPorId"/>
+		
+		<collection property="actoresDeReparto" javaType="java.util.Set" column="ID_PELICULA" select="obtenerActoresPorPelicula"/>		  	 	
+    </resultMap>
+    
+	<select id="obtenerGeneroPorId" parameterType="int" resultType="com.spring.movie.domain.Genero">
+		SELECT 	ID_GENERO as idGenero, 
+			NOMBRE as nombre	 
+		FROM genero
+		WHERE ID_GENERO = #{idGenero}
+	</select>
+
+	<select id="obtenerPaisPorId" parameterType="int" resultType="com.spring.movie.domain.Pais">
+		SELECT 	
+			ID_PAIS as idPais, 
+			NOMBRE as nombre
+		FROM pais 	
+		WHERE ID_PAIS = #{idPais}
+	</select>	
+	
+	<select id="obtenerActorPorId" parameterType="int" resultType="com.spring.movie.domain.Actor">
+		SELECT 	
+			ID_ACTOR as idActor, 
+			NOMBRE as nombre
+		FROM actor 	
+		WHERE ID_ACTOR = #{idActor}
+	</select>	
+	
+	<select id="obtenerActoresPorPelicula" parameterType="int" resultType="com.spring.movie.domain.Actor">
+		SELECT 	
+			a.ID_ACTOR AS idActor, 
+			a.NOMBRE AS nombre
+		FROM actor a JOIN actor_pelicula ap ON a.ID_ACTOR = ap.ID_ACTOR 
+		WHERE ap.ID_PELICULA = #{idPelicula}
+	</select>	
+	
+	<select id="obtenerPeliculas" resultMap="pelicula-result" parameterType="com.spring.movie.domain.Pelicula">
+		SELECT * FROM pelicula 
+		<if test="idPelicula != null">
+			WHERE ID_PELICULA = #{idPelicula}
+		</if>		
+	</select>	
+	
+	<select id="obtenerPeliculaPorId" resultMap="pelicula-result" parameterType="int">
+		SELECT * FROM pelicula 
+		WHERE ID_PELICULA = #{idPelicula}
+	</select>				
+	
+    
+</mapper>

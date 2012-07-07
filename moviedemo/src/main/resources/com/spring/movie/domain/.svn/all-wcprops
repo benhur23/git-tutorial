@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/resources/com/spring/movie/domain
+END
+Pais.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/resources/com/spring/movie/domain/Pais.hbm.xml
+END
+Pelicula.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/resources/com/spring/movie/domain/Pelicula.hbm.xml
+END
+Genero.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/resources/com/spring/movie/domain/Genero.hbm.xml
+END
+Actor.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/resources/com/spring/movie/domain/Actor.hbm.xml
+END

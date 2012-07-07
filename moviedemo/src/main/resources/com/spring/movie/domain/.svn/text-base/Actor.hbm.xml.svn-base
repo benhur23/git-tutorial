@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/08/2011 07:31:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.spring.movie.domain.Actor" table="actor">
+        <id name="idActor" type="java.lang.Integer">
+            <column name="ID_ACTOR" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="100" not-null="true" />
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column name="FECHA_NACIMIENTO" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

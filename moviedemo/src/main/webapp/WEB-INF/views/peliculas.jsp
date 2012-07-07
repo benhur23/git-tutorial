@@ -1,0 +1,149 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ 
+	<link rel="stylesheet" type="text/css" media="screen" 
+					href="<c:url value='/resources/css/redmond/jquery-ui-1.8.15.custom.css'/>" />
+	<link rel="stylesheet" type="text/css" media="screen" 
+					href="<c:url value='/resources/css/jqgrid/ui.jqgrid.css'/>" />
+
+	<script type="text/javascript" 
+					src="<c:url value='/resources/js/jquery/jquery-1.6.1.min.js'/>"></script>
+	<script type="text/javascript">
+	    var jq = jQuery.noConflict();
+	</script>
+	<script type="text/javascript" 
+					src="<c:url value='/resources/js/jquery/jquery-ui-1.8.6.custom.min.js'/>"></script> 
+	<script type="text/javascript" 
+					src="<c:url value='/resources/js/jqgrid/grid.locale-en.js'/>" ></script>
+	<script type="text/javascript" 
+					src="<c:url value='/resources/js/jqgrid/jquery.jqGrid.min.js'/>"></script>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>JqGrid - Integración con Spring 3 MVC </title>
+	
+</head>
+
+<body >
+
+<script type="text/javascript">
+		jq(function() {
+			jq("#grid").jqGrid({
+			   	url:'/moviedemo/pelicula/list',
+				datatype: 'json',
+				mtype: 'GET',
+			   	colNames:['Id', 'Título', 'Duración', 'Director', 'Género','Fecha Lanzamiento'],
+			   	colModel:[
+			   		{name:'idPelicula',index:'idPelicula', width:55,editable:false,editoptions:{readonly:true,size:10},hidden:true},
+			   		{name:'titulo',index:'titulo', width:100, editable:true, editrules:{required:true}, editoptions:{size:10}},
+			   		{name:'tiempoMinutos',index:'tiempoMinutos', width:100,editable:true, editrules:{required:true}, editoptions:{size:10}},
+			   		{name:'nombreDirector',index:'nombreDirector', width:100, editable: false},
+			   		{name:'nombreGenero',index:'nombreGenero', width:100, sortable:false},
+			   		{name:'fechaLanzamiento',index:'fechaLanzamiento', width:100,editable:false,sorttype:"date"}
+			   	],
+			   	postData: {},
+				rowNum:20,
+			   	rowList:[20,40,60],
+			   	height: 200,
+			   	autowidth: true,
+				rownumbers: true,
+				pagination:true,			
+			   	pager: '#pager',
+			   	sortname: 'idPelicula',
+			    viewrecords: true,
+			    sortorder: "asc",
+			    caption:"Películas",
+			    emptyrecords: "No hay registros para mostrar.",
+			    loadonce: false,
+			    loadComplete: function() {
+				},
+			    jsonReader : {
+			        root: "rows",
+			        page: "page",
+			        total: "total",
+			        records: "records",
+			        repeatitems: false,
+			        cell: "cell",
+			        id: "idPelicula"
+			    }
+			});
+			jq("#grid").jqGrid('navGrid','#pager',
+					{edit:false,add:false,del:false,search:false},
+					{ },
+			        { },
+			        { }, 
+					{ }
+			);
+			jq("#grid").navButtonAdd('#pager',
+					{ 	caption:"Add", 
+						buttonicon:"ui-icon-plus", 
+						onClickButton: addRow,
+						position: "last", 
+						title:"", 
+						cursor: "pointer"
+					} 
+			);			
+		});
+		
+</script>
+<script type="text/javascript">
+function listarActoresBoton(){
+	jq.getJSON("cargarPeliculas.html", null, function(data) {
+        alert(data);
+    });
+}
+function addRow() {
+
+	// Get the currently selected row
+    jq("#grid").jqGrid('editGridRow','new',
+    		{ 	url: "/moviedemo/pelicula/add", 
+					editData: {
+			    },
+			    recreateForm: true,
+			    beforeShowForm: function(form) {
+			    },
+				closeAfterAdd: true,
+				reloadAfterSubmit:false,
+				afterSubmit : function(response, postdata) 
+				{ 
+			        var result = eval('(' + response.responseText + ')');
+					var errors = "";
+					
+			        if (result.success == false) {
+						for (var i = 0; i < result.message.length; i++) {
+							errors +=  result.message[i] + "<br/>";
+						}
+			        }  else {
+			        	jq("#dialog").text('Entry has been added successfully');
+						jq("#dialog").dialog( 
+								{	title: 'Success',
+									modal: true,
+									buttons: {"Ok": function()  {
+										jq(this).dialog("close");} 
+									}
+								});
+	                }
+			    	// only used for adding new records
+			    	var new_id = null;
+			    	
+					return [result.success, errors, new_id];
+				}
+    		});
+
+}
+</script>  
+<p>JqGrid - Integración con Spring 3 MVC</p>
+<div id="jqgrid">
+	<table id="grid"></table>
+	<div id="pager"></div>
+</div>
+
+<br />=======================<br />
+<input type="button" value="Cargando..." onclick="listarActoresBoton()"  />
+</body>
+
+</html>

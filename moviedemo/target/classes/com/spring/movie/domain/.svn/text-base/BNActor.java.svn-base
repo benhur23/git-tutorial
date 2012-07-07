@@ -1,0 +1,21 @@
+package com.spring.movie.domain;
+
+public class BNActor {
+
+	private Integer idActor;
+	private String nombre;
+	
+	public Integer getIdActor() {
+		return idActor;
+	}
+	public void setIdActor(Integer idActor) {
+		this.idActor = idActor;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+}

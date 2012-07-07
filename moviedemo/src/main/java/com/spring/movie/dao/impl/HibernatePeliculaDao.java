@@ -1,0 +1,61 @@
+package com.spring.movie.dao.impl;
+
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
+
+import com.spring.movie.dao.PeliculaDao;
+import com.spring.movie.domain.BNPelicula;
+import com.spring.movie.domain.Pelicula;
+
+public class HibernatePeliculaDao extends HibernateDaoSupport implements
+		PeliculaDao {
+
+	public HibernatePeliculaDao(SessionFactory sessionFactory){
+		setSessionFactory(sessionFactory);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Pelicula> obtenerTodasLasPeliculas(int firstResult, int maxResults, 
+			String columnName, String sortType){
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Pelicula.class);
+		
+		if(StringUtils.isNotBlank(columnName) && StringUtils.isNotBlank(sortType)){
+			if(sortType.equalsIgnoreCase("asc")){
+				criteria.addOrder(Order.asc(columnName));
+			} else{
+				criteria.addOrder(Order.desc(columnName));
+			}
+		} 
+		
+		List<Pelicula> peliculas = getHibernateTemplate().findByCriteria(criteria, firstResult, maxResults);
+		return peliculas;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Integer contarTodosLasPelículas(){
+		
+		DetachedCriteria criteria = DetachedCriteria.forClass(Pelicula.class);
+		criteria.setProjection(Projections.rowCount());
+		List<Integer> contadores = getHibernateTemplate().findByCriteria(criteria);
+		
+		if(!contadores.isEmpty()){
+			return contadores.get(0);
+		}
+		return null;		
+	}
+
+	public List<BNPelicula> obtenerTodasLasBNPeliculas(int firstResult,
+			int maxResults, String columnName, String sortType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

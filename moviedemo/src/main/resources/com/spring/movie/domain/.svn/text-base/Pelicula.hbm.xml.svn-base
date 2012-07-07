@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11/08/2011 07:31:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.spring.movie.domain.Pelicula" table="pelicula">
+        <id name="idPelicula" type="java.lang.Integer">
+            <column name="ID_PELICULA" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="productor" class="com.spring.movie.domain.Actor" fetch="join" lazy="false">
+            <column name="ID_PRODUCTOR" not-null="true" />
+        </many-to-one>
+        <many-to-one name="director" class="com.spring.movie.domain.Actor" fetch="join" lazy="false">
+            <column name="ID_DIRECTOR" not-null="true" />
+        </many-to-one>
+        <many-to-one name="pais" class="com.spring.movie.domain.Pais" fetch="join" lazy="false">
+            <column name="ID_PAIS" not-null="true" />
+        </many-to-one>
+        <many-to-one name="genero" class="com.spring.movie.domain.Genero" fetch="join" lazy="false">
+            <column name="ID_GENERO" not-null="true" />
+        </many-to-one>
+        <property name="titulo" type="string">
+            <column name="TITULO" length="100" not-null="true" />
+        </property>
+        <property name="tiempoMinutos" type="int">
+            <column name="TIEMPO_MINUTOS" not-null="true" />
+        </property>
+        <property name="fechaLanzamiento" type="date">
+            <column name="FECHA_LANZAMIENTO" length="10" not-null="true" />
+        </property>
+        <property name="comentarios" type="string">
+            <column name="COMENTARIOS" />
+        </property>
+    </class>
+</hibernate-mapping>

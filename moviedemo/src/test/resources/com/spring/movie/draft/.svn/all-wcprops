@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/joedayz/susan/!svn/ver/2118/moviedemo/src/test/resources/com/spring/movie/draft
+END
+hibernate.reveng.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/joedayz/susan/!svn/ver/2118/moviedemo/src/test/resources/com/spring/movie/draft/hibernate.reveng.xml
+END
+jdbc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/joedayz/susan/!svn/ver/2118/moviedemo/src/test/resources/com/spring/movie/draft/jdbc.properties
+END
+hibernate.cfg.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/joedayz/susan/!svn/ver/2118/moviedemo/src/test/resources/com/spring/movie/draft/hibernate.cfg.xml
+END

@@ -1,0 +1,15 @@
+package com.spring.movie.service;
+
+import java.util.List;
+
+import com.spring.movie.domain.Pelicula;
+
+public interface PeliculaService {
+
+	public List<Pelicula> obtenerTodasLasPeliculas(int firstResult, int maxResults, 
+						String columnName, String sortType);
+	
+	public Pelicula obtenerPeliculaPorId(Integer idPelicula);
+	
+	public Integer contarTodosLasPelículas();
+}

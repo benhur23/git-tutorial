@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/joedayz/susan/!svn/ver/2118/moviedemo/src/main/webapp/WEB-INF
+END
+moviedemo-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/webapp/WEB-INF/moviedemo-servlet.xml
+END
+moviedemo-application-context.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/webapp/WEB-INF/moviedemo-application-context.xml
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/joedayz/susan/!svn/ver/2121/moviedemo/src/main/webapp/WEB-INF/web.xml
+END
